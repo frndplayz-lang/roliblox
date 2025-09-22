@@ -1,26 +1,42 @@
-// Import Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-analytics.js";
+async function getUserId(username) {
+  const response = await fetch("https://users.roblox.com/v1/usernames/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ usernames: [username] })
+  });
+  const data = await response.json();
+  if (data.data.length === 0) throw new Error("User not found");
+  return data.data[0].id;
+}
 
-// Your Firebase config (copy-paste from Firebase)
-const firebaseConfig = {
-  apiKey: "AIzaSyCox3mC...Zm",  // <-- your key here
-  authDomain: "roliblox.firebaseapp.com",
-  projectId: "roliblox",
-  storageBucket: "roliblox.appspot.com",
-  messagingSenderId: "264126773724",
-  appId: "1:264126773724:web:c5d9d2966df2bc6df7719",
-  measurementId: "G-GJKJK8V28T"
-};
+async function getUserValue(userId) {
+  let totalValue = 0;
+  let cursor = "";
+  
+  do {
+    const res = await fetch(
+      `https://inventory.roblox.com/v1/users/${userId}/assets/collectibles?sortOrder=Asc&limit=100&cursor=${cursor}`
+    );
+    const data = await res.json();
+    data.data.forEach(item => {
+      if (item.recentAveragePrice) totalValue += item.recentAveragePrice;
+    });
+    cursor = data.nextPageCursor;
+  } while (cursor);
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+  return totalValue;
+}
 
-// Example functionality: show fake value
-document.getElementById("checkValue").addEventListener("click", () => {
+document.getElementById("checkValue").addEventListener("click", async () => {
   const user = document.getElementById("username").value;
-  document.getElementById("result").innerText =
-    `Estimated value for ${user}: 12,345 Robux (demo)`;
+  const resultDiv = document.getElementById("result");
+  resultDiv.innerText = "Fetching value...";
+  
+  try {
+    const userId = await getUserId(user);
+    const value = await getUserValue(userId);
+    resultDiv.innerText = `Estimated value for ${user}: ${value.toLocaleString()} Robux`;
+  } catch (err) {
+    resultDiv.innerText = "Error: " + err.message;
+  }
 });
-
