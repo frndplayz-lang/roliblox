@@ -3,16 +3,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roliblox Value Checker</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Firebase SDK -->
-  <script type="module" src="app.js" defer></script>
+  <title>Roliblox Avatar Value Checker</title>
+  <style>
+    body {
+      background: #121212;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #1e1e1e;
+      padding: 2rem;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      width: 350px;
+      animation: fadeIn 0.8s ease;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: #f05454;
+    }
+
+    input {
+      padding: 0.7rem;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      width: 70%;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 0.7rem 1.2rem;
+      background: #f05454;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-left: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #ff7676;
+    }
+
+    .spinner {
+      display: none;
+      margin: 1rem auto;
+      border: 5px solid #333;
+      border-top: 5px solid #f05454;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    #result {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-  <h1>Roliblox Avatar Value Checker</h1>
-  <input id="username" placeholder="Enter Roblox username">
-  <button id="checkValue">Check Value</button>
+  <div class="container">
+    <h1>Roliblox Value Checker</h1>
+    <input type="text" id="username" placeholder="Enter Roblox username">
+    <button onclick="checkValue()">Check</button>
+    <div class="spinner" id="spinner"></div>
+    <p id="result"></p>
+  </div>
 
-  <div id="result"></div>
+  <script>
+    function checkValue() {
+      const username = document.getElementById("username").value;
+      const spinner = document.getElementById("spinner");
+      const result = document.getElementById("result");
+
+      if (!username) {
+        result.textContent = "⚠️ Please enter a username!";
+        result.style.opacity = 1;
+        return;
+      }
+
+      // Show spinner
+      spinner.style.display = "block";
+      result.style.opacity = 0;
+
+      // Fake loading (simulate API call)
+      setTimeout(() => {
+        spinner.style.display = "none";
+        const fakeValue = Math.floor(Math.random() * 20000) + 1000;
+        result.textContent = `Estimated value for ${username}: ${fakeValue} Robux (demo)`;
+        result.style.opacity = 1;
+      }, 1500);
+    }
+  </script>
 </body>
 </html>
