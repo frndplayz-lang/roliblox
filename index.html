@@ -3,47 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RoliBlox</title>
+  <title>RoliBlox - Promote Roblox UGC & Games</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background: #111;
-      color: white;
-      margin: 0;
-      padding: 0;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #0f0f0f; color: #fff; line-height: 1.6; }
+
+    header { background: #202020; padding: 20px; text-align: center; border-bottom: 3px solid #ff4747; }
+    header h1 { font-size: 2.5rem; color: #ff4747; }
+    header p { font-size: 1.1rem; color: #ccc; }
+    nav { margin-top: 10px; }
+    nav a { color: #fff; margin: 0 10px; text-decoration: none; font-weight: bold; transition: color 0.2s; }
+    nav a:hover { color: #ff4747; }
+
+    .container { max-width: 1000px; margin: 30px auto; padding: 20px; }
+    .section { margin-bottom: 50px; }
+    .section h2 { margin-bottom: 15px; font-size: 1.8rem; border-left: 5px solid #ff4747; padding-left: 10px; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .card { background: #1a1a1a; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.2s; }
+    .card:hover { transform: scale(1.05); }
+    .card img { width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; }
+    .card h3 { margin-bottom: 8px; color: #ff4747; }
+    .btn { display: inline-block; margin-top: 10px; padding: 10px 20px; background: #ff4747; color: #fff; border-radius: 6px; text-decoration: none; transition: background 0.3s; }
+    .btn:hover { background: #e13c3c; }
+
+    form { background: #1a1a1a; padding: 20px; border-radius: 8px; }
+    form label { display: block; margin: 10px 0 5px; }
+    form input, form textarea, form select {
+      width: 100%; padding: 10px; border-radius: 6px; border: none; margin-bottom: 15px;
     }
-    header {
-      background: #202020;
-      padding: 20px;
-    }
-    h1 {
-      color: #00ccff;
-    }
-    .container {
-      margin-top: 40px;
-    }
-    footer {
-      margin-top: 50px;
-      padding: 20px;
-      background: #202020;
-      color: gray;
-    }
+    form button { background: #ff4747; border: none; padding: 10px 20px; color: #fff; border-radius: 6px; cursor: pointer; transition: 0.3s; }
+    form button:hover { background: #e13c3c; }
+
+    footer { text-align: center; padding: 20px; background: #202020; border-top: 3px solid #ff4747; margin-top: 40px; color: #aaa; }
   </style>
 </head>
 <body>
   <header>
-    <h1>Welcome to RoliBlox</h1>
-    <p>Promote your Roblox UGC and Creations for free!</p>
+    <h1>RoliBlox</h1>
+    <p>Promote your Roblox UGC & Games for FREE 🚀</p>
+    <nav>
+      <a href="#ugc">UGC</a>
+      <a href="#games">Games</a>
+      <a href="#submit">Submit</a>
+      <a href="#about">About</a>
+    </nav>
   </header>
 
   <div class="container">
-    <h2>🚀 Our Mission</h2>
-    <p>This website is for Roblox promotion. Share your creations with the community.</p>
+    <!-- UGC Section -->
+    <section id="ugc" class="section">
+      <h2>Featured UGC</h2>
+      <div class="cards" id="ugc-list">
+        <div class="card">
+          <img src="https://tr.rbxcdn.com/9f87902e5cbbcc19d8146c4c1fda01f6/420/420/Hat/Webp" alt="UGC Item">
+          <h3>Example Fedora</h3>
+          <p>A sample UGC item showcase</p>
+          <a href="#" class="btn">View UGC</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="section">
+      <h2>Featured Games</h2>
+      <div class="cards" id="game-list">
+        <div class="card">
+          <img src="https://tr.rbxcdn.com/9a19d4d38f739afc178cfbca2a5a2468/768/432/Image/Webp" alt="Game">
+          <h3>Example Game</h3>
+          <p>A sample Roblox game showcase</p>
+          <a href="#" class="btn">Play Game</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Submission Form -->
+    <section id="submit" class="section">
+      <h2>Submit Your UGC or Game</h2>
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <label for="type">Type:</label>
+        <select name="type" required>
+          <option value="UGC">UGC Item</option>
+          <option value="Game">Game</option>
+        </select>
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" placeholder="Your item/game name" required>
+
+        <label for="image">Image URL:</label>
+        <input type="url" name="image" placeholder="Roblox thumbnail link" required>
+
+        <label for="link">Roblox Link:</label>
+        <input type="url" name="link" placeholder="Link to UGC or Game" required>
+
+        <label for="desc">Description:</label>
+        <textarea name="desc" rows="3" placeholder="Short description..." required></textarea>
+
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+      <h2>About RoliBlox</h2>
+      <p>RoliBlox is a free platform where creators can showcase their Roblox UGC items and games.  
+      No payments, no ads — just promotion and discovery.</p>
+    </section>
   </div>
 
   <footer>
-    <p>© 2025 RoliBlox</p>
+    <p>© 2025 RoliBlox | Made for the Roblox Community ❤️</p>
   </footer>
 </body>
 </html>
